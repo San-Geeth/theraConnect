@@ -1,0 +1,49 @@
+<app-nav></app-nav>
+
+<div class="container mt-4">
+    <!-- Filter Section -->
+    <div class="row mb-4">
+        <div class="mb-4">
+            <div class="col-12 col-md-6">
+                <label for="specialtyFilter">Filter by Specialty:</label>
+                <select id="specialtyFilter" class="form-select" [(ngModel)]="selectedSpecialty">
+                    <option value="">All Specialties</option>
+                    <option *ngFor="let specialty of specialties" [value]="specialty">{{ specialty }}</option>
+                </select>
+            </div>
+
+            <div class="col-12 col-md-6">
+                <label for="availabilityFilter">Filter by Availability Date:</label>
+                <input id="availabilityFilter" type="date" class="form-control" [(ngModel)]="selectedAvailabilityDate">
+            </div>
+        </div>
+
+        <div class="mb-4">
+            <button type="button" class="btn btn-outline-primary" (click)="filterTherapists()">Search</button>
+        </div>
+    </div>
+
+    <!-- Therapist Cards -->
+    <div class="row">
+        <ng-container *ngIf="filteredTherapists.length > 0">
+            <div class="col-12 col-md-4 mb-4" *ngFor="let item of filteredTherapists">
+                <div class="card">
+                    <img src="assets/placeholder.jpg" class="card-img-top" alt="Therapist's Image">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ item.name }} <span
+                                class="badge bg-success">{{item.specialties}}</span></h5>
+                        <p class="card-text">{{ item.bio }}</p>
+                        <p><strong>Availability:</strong></p>
+                        <ul>
+                            <li *ngFor="let avail of item.availability">
+                                {{ avail.date }}: {{ avail.time }}
+                            </li>
+                        </ul>
+                        <button type="button" class="btn btn-primary btn-sm" (click)="bookSession(item)">Book
+                            Session</button>
+                    </div>
+                </div>
+            </div>
+        </ng-container>
+    </div>
+</div>

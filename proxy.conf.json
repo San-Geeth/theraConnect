@@ -1,0 +1,11 @@
+{
+    "/api": {
+      "target": "https://www.freeconferencecall.com",
+      "secure": false,
+      "changeOrigin": true,
+      "pathRewrite": {
+        "^/api": "/v1/meetings"
+      }
+    }
+  }
+  

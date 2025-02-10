@@ -1,0 +1,67 @@
+<div class="container mt-4">
+    <h3>Booking with {{ therapist?.name }}</h3>
+
+    <!-- Therapist Availability -->
+    <div>
+        <strong>Available Dates:</strong>
+        <ul>
+            <li *ngFor="let avail of therapist?.availability">
+                <strong>{{ avail.date }}:</strong>
+                <span class="badge rounded-pill bg-primary" *ngFor="let time of getAvailableTimes(avail.time)"
+                    (click)="selectTime(avail.date, time)">{{ time }}</span>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Show the selected date and time -->
+    <div *ngIf="selectedDate && selectedTime">
+        <p><strong>Selected Date:</strong> {{ selectedDate }}</p>
+        <p><strong>Selected Time:</strong> {{ selectedTime }}</p>
+    </div>
+
+    <!-- Proceed to Payment Button -->
+    <button type="button" class="btn btn-primary" (click)="showPaymentModal()">Proceed to Payment</button>
+
+    <!-- Payment Modal -->
+    <div class="modal fade" tabindex="-1" role="dialog" [ngClass]="{'show': showModal}" id="paymentModal"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Payment</h5>
+                    <button type="button" class="close" (click)="showModal = false" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <!-- Payment Form -->
+                    <h3>Amount: LKR {{randomAmount}}</h3>
+                    <form (ngSubmit)="processPayment()" #paymentForm="ngForm">
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="text" class="form-control" id="cardNumber" name="email"
+                                [(ngModel)]="email" required placeholder="user@gmail.com">
+                        </div>
+                        <div class="mb-3">
+                            <label for="cardNumber" class="form-label">Card Number</label>
+                            <input type="text" class="form-control" id="cardNumber" name="cardNumber"
+                                [(ngModel)]="cardNumber" required placeholder="1234 5678 9876 5432">
+                        </div>
+                        <div class="mb-3">
+                            <label for="expiryDate" class="form-label">Expiry Date</label>
+                            <input type="month" class="form-control" id="expiryDate" name="expiryDate"
+                                [(ngModel)]="expiryDate" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="cvv" class="form-label">CVV</label>
+                            <input type="text" class="form-control" id="cvv" name="cvv" [(ngModel)]="cvv" required
+                                placeholder="123">
+                        </div>
+                        <button type="submit" class="btn btn-primary" [disabled]="!paymentForm.form.valid">Submit
+                            Payment</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
