@@ -3,7 +3,7 @@
 **TheraConnect** is a platform that allows clients to find and book therapy sessions with licensed professionals. The application provides therapist profiles, a search and booking feature, video sessions, and a payment system.
 
 ## Test Steps 
-- visit and wait for moment to Google AI Studio return resposne for sample therapists list(loader will be shown)
+- visit https://fastidious-brioche-154113.netlify.app/ and wait for moment to Google AI Studio return resposne for sample therapists list(loader will be shown)
 - Search therapist using filters(specilist and availabilty)
 - Click on Book Session
 - Select prefered time slot.
